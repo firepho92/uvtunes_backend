@@ -19,18 +19,18 @@ module.exports = function (router) {
         });
     });
 
-    router.get('/tableColumns', function (req, res, a) {
+    router.get('/tableColumns', function (req, res) {
         var tableName = req.query.table;
         connection.query('describe ' + tableName, function (error, results){
             if(error) throw error;
             connection.query('select * from ' + tableName, function (e, r){
-               if(e) throw error;
-               var table = {
-                   columns: results,
-                   data: r
-               }
-               console.log(table);
-               res.send(table);
+                if(e) throw error;
+                var table = {
+                    columns: results,
+                    data: r
+                }
+                console.log(table);
+                res.send(table);
             });
             //res.send(results);
         });
@@ -38,8 +38,8 @@ module.exports = function (router) {
     });
 
     router.get('/tableData', function (req, res) {
-        const table = req.query.table;
-        connection.query('select * from ' + table, function (error, results, table){
+        var table = req.query.table;
+        connection.query('select * from ' + table, function (error, results){
             if(error) throw error;
             res.send(results);
         });

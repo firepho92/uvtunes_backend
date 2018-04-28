@@ -13,7 +13,7 @@ module.exports = function (router) {
     var productos = new ProductoModel;
 
     router.get('/', function (req, res) {
-        connection.query('SELECT  FROM producto', function (error, results){
+        connection.query('SELECT * FROM producto', function (error, results){
             if(error) throw error;
             res.send(results);
         });

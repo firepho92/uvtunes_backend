@@ -5,7 +5,6 @@
     "author": "Alex Aguilar",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon server.js",
         "test": "grunt test",
         "build": "grunt build",
         "all": "npm run build && npm run test"

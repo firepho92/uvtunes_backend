@@ -1,40 +1,37 @@
 {
     "mysqlConnection": {
-        "host": "localhost",
-        "user": "root",
-        "password": "auza940220",
-        "database": "uvtunes"
+        "host": "",
+        "user": "",
+        "password": "",
+        "database": ""
     },
-
-
-
-
-
-
     "i18n": {
         "contentPath": "path:./locales",
         "fallback": "en-US"
     },
-
-
     "specialization": {
     },
-
+    "mailConfig": {
+        "service": "gmail",
+        "auth": {
+            "user": "yourmail@gmail.com",
+            "pass": "yourpassword"
+        },
+        "tls": { 
+            "rejectUnauthorized": false 
+        }
+    },
     "middleware": {
-
-
-
         "static": {
             "module": {
                 "arguments": [ "path:./.build" ]
             }
         },
-
         "router": {
             "module": {
                 "arguments": [{ "directory": "path:./controllers" }]
             }
-        },
+        },        
         "appsec": {
             "priority": 110,
             "module": {
@@ -49,6 +46,5 @@
                 ]
             }
         }
-
     }
 }

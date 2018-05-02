@@ -1,9 +1,9 @@
 {
     "mysqlConnection": {
-        "host": "",
-        "user": "",
-        "password": "",
-        "database": ""
+        "host": "sql9.freemysqlhosting.net",
+        "user": "sql9235941",
+        "password": "DJdmqeMlyn",
+        "database": "sql9235941"
     },
     "i18n": {
         "contentPath": "path:./locales",
@@ -14,11 +14,11 @@
     "mailConfig": {
         "service": "gmail",
         "auth": {
-            "user": "yourmail@gmail.com",
-            "pass": "yourpassword"
+            "user": "uvtunes2018@gmail.com",
+            "pass": "uvtunes2018!"
         },
-        "tls": { 
-            "rejectUnauthorized": false 
+        "tls": {
+            "rejectUnauthorized": false
         }
     },
     "middleware": {
@@ -31,7 +31,7 @@
             "module": {
                 "arguments": [{ "directory": "path:./controllers" }]
             }
-        },        
+        },
         "appsec": {
             "priority": 110,
             "module": {

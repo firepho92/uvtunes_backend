@@ -2,7 +2,7 @@
     "name": "uvtunes-backend",
     "version": "0.1.0",
     "description": "backend for uvTunes store multiple clients",
-    "author": "Alex Aguilar",
+    "author": "Alex Aguilar & Caio Amaral",
     "main": "index.js",
     "scripts": {
         "test": "grunt test",
@@ -16,7 +16,9 @@
         "express": "^4.12.2",
         "kraken-js": "^2.0.0",
         "mysql": "^2.15.0",
-        "nodemon": "^1.17.3"
+        "nodemailer": "^4.6.4",
+        "nodemon": "^1.17.3",
+        "uuid-token-generator": "^1.0.0"
     },
     "devDependencies": {
         "grunt": "^0.4.5",

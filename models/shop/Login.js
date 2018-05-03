@@ -6,8 +6,8 @@ const configData = require('../../config/config.json');
 const connectionData = configData.mysqlConnection;
 const connection = mysql.createConnection(connectionData);
 
-module.exports = function Login(param) {    
-    return new Promise((exito) => connection.connect((err) => {
+module.exports = function Login(request) {    
+    return new Promise((exito, falla) => connection.connect((err) => {
         let data = {
             "exito" : false,
             "error" : "Erro en el servidor"
@@ -18,10 +18,10 @@ module.exports = function Login(param) {
             exito(data);
         }
         
-        const sql = `SELECT id_cliente 
+        const sql = `SELECT * 
                        FROM cliente 
-                      WHERE email = '` + param.email + `' 
-                        AND contrasena = '` + param.contrasena + `'`;
+                      WHERE email = '` + request.body.email + `' `;
+                        // AND contrasena = '` + request.body.contrasena + `'`;
                         
         connection.query(sql, function (err, result) {
             if (err) {
@@ -29,13 +29,22 @@ module.exports = function Login(param) {
                 exito(data);
             }
             
-            data.error = "Usuario no encontrado";
+            data.error = "Combinación inválida";
 
             if (result.length > 0) {
-                if (result.activado) {
-                    if (result.habilitado) {
-                        data.exito = true,
-                        data.error = null
+                if (result[0].activado) {
+                    if (result[0].habilitado) {
+                        data.exito = true;
+                        data.error = null;
+                        data.registro = result[0];
+
+                        // Quita los campos inecesarios
+                        ["contrasena", "salt", "activado", "habilitado", "token"].forEach(function (key) {
+                            delete data.registro[key];
+                        })
+                        
+                        // Guarda los datos en la sesión
+                        request.session.store = data.registro;
                     } else {
                         data.error = "Su cuenta está deshabilitada.\nContacte el administrador"
                     }

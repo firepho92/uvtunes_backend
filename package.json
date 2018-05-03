@@ -12,8 +12,10 @@
     "dependencies": {
         "construx": "^1.0.0",
         "construx-copier": "^1.0.0",
+        "crypto": "^1.0.1",
         "eslint": "^1.10.3",
         "express": "^4.12.2",
+        "express-session": "^1.15.6",
         "kraken-js": "^2.0.0",
         "mysql": "^2.15.0",
         "nodemailer": "^4.6.4",

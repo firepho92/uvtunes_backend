@@ -2,22 +2,12 @@
 
 const mysql = require('mysql');
 const nodemailer = require('nodemailer');
-const TokenGenerator = require('uuid-token-generator');
 
 const configData = require('../../config/config.json');
 const connectionData = configData.mysqlConnection;
 const connection = mysql.createConnection(connectionData);
 
-module.exports = function Register(param) {    
-    function generateToken() {
-        const tokgen = new TokenGenerator();
-        let token = tokgen.generate();
-
-        // Verify if token alredy exists...
-
-        return token.substr(0, 10);
-    }
-
+module.exports = function Register(datos) {     
     function generateMail(token) {
         return `<html>
                     <body style="text-align: center;">
@@ -36,24 +26,8 @@ module.exports = function Register(param) {
             console.log("Error al conectar al MySQL -> " + err);
             exito(false);
         }
-
-        const token = generateToken();
-        
-        const sql = `INSERT INTO cliente 
-                       (nombre, apellido, fecha_nacimiento, email, contrasena, 
-                        direccion, cp, ciudad, estado, token) VALUES (
-                        '` + param.nombre + `',
-                        '` + param.apellido + `',
-                        '1994-08-11 23:59:59',
-                        '` + param.email + `',
-                        '` + param.contrasena + `',
-                        '` + param.direccion + `',
-                        '` + param.cp + `',
-                        '` + param.ciudad + `',
-                        '` + param.estado + `',
-                        '` + token + `')`;
                         
-        connection.query(sql, function (err, result) {
+        let query = connection.query('INSERT INTO cliente SET ?', datos, function (err, result) {
             if (err) {
                 console.log("Error al registrar usuario -> " + err);
                 exito(false);
@@ -61,9 +35,9 @@ module.exports = function Register(param) {
           
             const mailOptions = {
                 from: 'uvTunes <no-reply@uvtunes.com.mx>',
-                to: param.email,
+                to: datos.email.replace(/'/g, ''),
                 subject: 'Activate your account',
-                html: generateMail(token)
+                html: generateMail(datos.token.replace(/'/g, ''))
             };
 
             const transporter = nodemailer.createTransport(configData.mailConfig);

@@ -32,6 +32,15 @@
                 "arguments": [{ "directory": "path:./controllers" }]
             }
         },
+        "session": {
+            "priority": 100,
+            "module" : {
+                "name" : "express-session",
+                "arguments": [{
+                    "secret": "uvtunes gg"
+                }]
+            }
+        },
         "appsec": {
             "priority": 110,
             "module": {

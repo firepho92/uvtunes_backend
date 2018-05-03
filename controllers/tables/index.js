@@ -12,13 +12,6 @@ module.exports = function (router) {
 
     var productos = new ProductoModel;
 
-    router.get('/showTables', function (req, res) {
-        connection.query('Show tables', function (error, results){
-            if(error) throw error;
-            res.send(results);
-        });
-    });
-
     router.get('/tableColumns', function (req, res) {
         var tableName = req.query.table;
         connection.query('describe ' + tableName, function (error, results){
@@ -35,6 +28,13 @@ module.exports = function (router) {
             //res.send(results);
         });
 
+    });
+
+    router.get('/showTables', function (req, res) {
+        connection.query('Show tables', function (error, results){
+            if(error) throw error;
+            res.send(results);
+        });
     });
 
     router.get('/tableData', function (req, res) {

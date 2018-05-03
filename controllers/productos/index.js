@@ -18,5 +18,11 @@ module.exports = function (router) {
             res.send(results);
         });
     });
+    router.get('/bytype', function (req, res) {
+        connection.query('SELECT producto.id_producto, proveedor.nombre, productora.nombre, producto.nombre, producto.descripcion, producto. ano, producto.foto, producto.peso, producto.tipo_prducto, producto.fisico, producto.digital, producto.precio_fisico, producto.precio_digital, producto.habilitado FROM producto INNER JOIN proveedor ON producto.id_productora = proveedor.id_proveedor INNER JOIN productora ON producto.id_productora = productora.id_productora WHERE producto.permitir_consulta = 1', function (error, results){
+            if(error) throw error;
+            res.send(results);
+        });
+    });
 
 };

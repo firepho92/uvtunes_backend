@@ -5,17 +5,18 @@ const nodemailer = require('nodemailer');
 
 const configData = require('../../config/config.json');
 const connectionData = configData.mysqlConnection;
-const connection = mysql.createConnection(connectionData);
 
 module.exports = function Register(datos) {     
+    const connection = mysql.createConnection(connectionData);
+    
     function generateMail(token) {
         return `<html>
                     <body style="text-align: center;">
-                        <img src="http://localhost:3000/static/media/Logo.43a58311.png" alt="uvTunes" width="230" /><br /><br />
+                        <img src="https://uvtunes-client.herokuapp.com/static/media/Logo.43a58311.png" alt="uvTunes" width="230" /><br /><br />
                         <div>
                             Gracias por registrarte en uvTunes! <br /><br />
-                            Para activar su cuenta <a href="http://localhost:3000?token=` + token + `" target="_blank">pulse aqui</a>. Caso no funcione, use este link: <br />
-                            <div style="background-color: #EFEFEF; display: table; font-family: Consolas, Verdana; font-size: 0.8em; margin: 10px auto; padding: 10px;">http://localhost:3000?token=` + token + `</d>
+                            Para activar su cuenta <a href="https://uvtunes-client.herokuapp.com/?token=` + token + `" target="_blank">pulse aqui</a>. Caso no funcione, use este link: <br />
+                            <div style="background-color: #EFEFEF; display: table; font-family: Consolas, Verdana; font-size: 0.8em; margin: 10px auto; padding: 10px;">https://uvtunes-client.herokuapp.com/?token=` + token + `</d>
                         </div>
                     </body>
                 </html>`;

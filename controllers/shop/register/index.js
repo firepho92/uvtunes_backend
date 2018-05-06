@@ -30,11 +30,10 @@ module.exports = function (router) {
             if (key === "contrasena") {
                 const password = hashPassword(datos[key].trim() === "" ? "1234" : datos[key]);
 
-                //datos[key] = password.password;
+                datos[key] = password.password;
                 datos["salt"] = password.salt;
             } else if (key === "fecha_nacimiento") {
-                datos[key] = datos[key].split('/');
-                datos[key] = datos[key][2] + "-" + datos[key][1] + "-" + datos[key][0] + " 00:00:00";
+                datos[key] += " 00:00:00";
             } else if (datos[key].trim() === "") {
                 datos[key] = null;
             }

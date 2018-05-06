@@ -5,10 +5,10 @@ const mysql = require('mysql');
 const configData = require('../../config/config.json');
 const connectionData = configData.mysqlConnection;
 
-module.exports = function Activate(param) {    
+module.exports = function VerifyEmail(request) {    
     const connection = mysql.createConnection(connectionData);
-
-    return new Promise((exito) => connection.connect((err) => {
+        
+    return new Promise((exito, falla) => connection.connect((err) => {
         let data = {
             "exito" : false,
             "error" : "Erro en el servidor"
@@ -19,19 +19,20 @@ module.exports = function Activate(param) {
             exito(data);
         }
         
-        const sql = `UPDATE cliente 
-                        SET activado = true
-                      WHERE token = '` + param.token + `'`;
+        const sql = `SELECT * 
+                       FROM cliente 
+                      WHERE email = '` + request.body.email + `'`;
                         
         connection.query(sql, function (err, result) {
             if (err) {
-                console.log("Error al intentar activar cuenta -> " + err);
+                console.log("Error al intentar hacer login -> " + err);
                 exito(data);
             }
-                        
-            if (result.affectedRows > 0) data.exito = true,
-            data.error = null
             
+            data.exito = true;
+            data.error = null;
+            data.free = (result.length > 0 ? false : true);
+
             exito(data);
         });
     }));
